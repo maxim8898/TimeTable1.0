@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TimeTable1.0</string>
+    <string name="one_par_mon"></string>
+    <string name="two_par_mon"></string>
+    <string name="three_par_mon"></string>
+    <string name="four_par_mon"></string>
 </resources>
