@@ -1,8 +1,8 @@
 package com.max.timetable10;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,7 @@ import android.widget.TextView;
  * Created by Максим on 16.10.2016.
  */
 
-public class DayFragment extends Fragment{
+public class DayFragment extends Fragment {
 
     private byte a, group;
 

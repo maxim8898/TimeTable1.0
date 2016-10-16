@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TabsActivity">
+    <group
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/action_item_settings"
+            android:icon="@drawable/ic_settings_app"
+            android:orderInCategory="2"
+            android:title="Settings"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/action_item_refresh"
+            android:icon="@drawable/ic_rasp"
+            android:orderInCategory="1"
+            android:title="Refresh"
+            app:showAsAction="always" />
+    </group>
+
+</menu>
