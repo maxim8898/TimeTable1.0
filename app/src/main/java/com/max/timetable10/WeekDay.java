@@ -5,5 +5,5 @@ package com.max.timetable10;
  */
 
 public enum WeekDay {
-    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY
 }
