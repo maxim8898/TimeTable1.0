@@ -60,4 +60,8 @@ public class DayFragment extends Fragment {
         }
         return view;
     }
+
+    public void setLessonSheet(String[][] lessonSheet) {
+        LessonSheet = lessonSheet;
+    }
 }
