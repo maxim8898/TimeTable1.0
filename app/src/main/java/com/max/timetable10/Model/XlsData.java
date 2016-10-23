@@ -7,9 +7,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -23,15 +25,20 @@ public class XlsData implements ILessonTable {
 
     private  String URL ;
     public static final String FILE_NAME = "current.xls";
+    private FileInputStream AndroidFileInputStream;
+    private FileOutputStream AndroidFileOutputStream;
 
-    public XlsData(String URL){
+
+    public XlsData(String URL, FileInputStream androidFileInputStream, FileOutputStream androidFileOutputStream) {
         this.URL = URL;
+        AndroidFileInputStream = androidFileInputStream;
+        AndroidFileOutputStream = androidFileOutputStream;
     }
 
-    public void downloadFile(FileOutputStream outputStream) throws IOException {
+    public void downloadFile() throws IOException {
         URL url = new URL(this.URL);
         BufferedInputStream bis = new BufferedInputStream(url.openStream());
-        FileOutputStream fis = outputStream;
+        FileOutputStream fis = AndroidFileOutputStream;
         byte[] buffer = new byte[1024];
         int count=0;
         while((count = bis.read(buffer,0,1024)) != -1)
@@ -42,12 +49,12 @@ public class XlsData implements ILessonTable {
         bis.close();
     }
 
-    public String[][] getLessonTable(InputStream inputStream, int numOfSheet, int COUNT_OF_GROUPS, int COUNT_OF_LESSONS) throws IOException{
+    public String[][] getLessonTable(int numOfSheet, int COUNT_OF_GROUPS, int COUNT_OF_LESSONS) throws IOException{
 
 
         String arr[][] = new String[COUNT_OF_GROUPS][COUNT_OF_LESSONS];
 
-        HSSFWorkbook workBook = new HSSFWorkbook(inputStream);
+        HSSFWorkbook workBook = new HSSFWorkbook(AndroidFileInputStream);
         HSSFSheet sheet = workBook.getSheetAt(numOfSheet);
 
 

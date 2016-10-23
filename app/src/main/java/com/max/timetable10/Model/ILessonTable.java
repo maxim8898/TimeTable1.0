@@ -9,7 +9,7 @@ import java.io.InputStream;
  */
 
 public interface ILessonTable {
-    void downloadFile(FileOutputStream fos) throws IOException;
+    void downloadFile() throws IOException;
     public String[][] getLessonTable
-            (InputStream inputStream, int numOfSheet, int COUNT_OF_GROUPS, int COUNT_OF_LESSONS) throws IOException;
+            ( int numOfSheet, int COUNT_OF_GROUPS, int COUNT_OF_LESSONS) throws IOException;
 }

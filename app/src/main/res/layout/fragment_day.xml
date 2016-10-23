@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.max.timetable10.DayFragment">
+    tools:context="com.max.timetable10.View.DayFragment">
 
     <TextView
         android:text="@string/one_par_mon"

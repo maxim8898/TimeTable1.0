@@ -1,4 +1,4 @@
-package com.max.timetable10;
+package com.max.timetable10.View;
 
 /**
  * Created by Максим on 16.10.2016.

@@ -1,88 +1,100 @@
 package com.max.timetable10.View;
 
-import android.app.Activity;
-import android.os.AsyncTask;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.max.timetable10.Model.ILessonTable;
-import com.max.timetable10.Model.XlsData;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import com.max.timetable10.Presenter.TaskFactory;
 import com.max.timetable10.R;
+import java.io.FileNotFoundException;
 
-import java.io.IOException;
-import java.util.Arrays;
 
-public class TabsActivity extends Activity implements ILessonView,View.OnClickListener{
+public class TabsActivity extends AppCompatActivity {
 
-    public ILessonTable xlsData;
+    public static int downloadBorder;
     public static String  fileName = "newtestcurrent.xls";
-    private static DownloadTask downloadTask;
-    TextView txtView;
-    Button btn;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+
+
+    public byte a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
 
-
-        xlsData = new XlsData
-                ("https://psv4.vk.me/c810235/u163830924/docs/ad86fae96c92/current.xls?extra=WGivnWGkkDocYO4Psc7GGjfhghta6s39b_5-j-JNbtPwLp284lI7MsJnMQBOX20xBBIYqdt0TwsISj4fFipDrkLdzCSFSXxDKthRQPuqDdUXkc1deK19Aex3XA");
-
-        DownloadTask downloadTask = new DownloadTask();
-
-        txtView = (TextView)findViewById(R.id.textView);
-        btn = (Button)findViewById(R.id.action_item_refresh);
-    }
-
+        TaskFactory.setDayFragments( new DayFragment[]{
+                new DayFragment(WeekDay.MONDAY,(byte)0,null),
+                new DayFragment(WeekDay.TUESDAY,(byte)1,null),
+                new DayFragment(WeekDay.WEDNESDAY,(byte)0,null),
+                new DayFragment(WeekDay.THURSDAY,(byte)0,null),
+                new DayFragment(WeekDay.FRIDAY,(byte)0,null),
+                new DayFragment(WeekDay.SATURDAY,(byte)0,null)
+        });
 
 
-    @Override
-    public void updateView() {
-        try {
-        //    if(openFileInput(fileName)==null) txtView.setText("NULL");
+        downloadBorder = 0;
 
 
 
-           txtView.setText(Arrays.toString(xlsData.getLessonTable(openFileInput(fileName),1,6,24)[0]));
-        } catch (IOException e) {
-            txtView.setText("File not exist");
-            e.printStackTrace();
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            txtView.setText("NULL");
-        }
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     @Override
-    public void onClick(View view) {
-        switch(view.getId()){
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
             case R.id.action_item_refresh:
-                downloadTask.execute();
-                    break;
+                if(downloadBorder<2) {
+                    try {
+                        TaskFactory.updateView(openFileInput(fileName),openFileOutput(fileName,MODE_PRIVATE));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    downloadBorder++;
+                }
+                break;
+            case R.id.action_item_settings:
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    public class DownloadTask extends AsyncTask<Void,Void,Void>{
+    public void setupViewPager(ViewPager viewPager){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        @Override
-        protected Void doInBackground(Void... voids) {
+        adapter.addFragment(TaskFactory.dayFragments[0], "ПН");
+        adapter.addFragment(TaskFactory.dayFragments[1], "ВТ");
+        adapter.addFragment(TaskFactory.dayFragments[2], "СР");
+        adapter.addFragment(TaskFactory.dayFragments[3], "ЧТ");
+        adapter.addFragment(TaskFactory.dayFragments[4], "ПЯТ");
+        adapter.addFragment(TaskFactory.dayFragments[5], "СУБ");
 
-            try {
-                xlsData.downloadFile(openFileOutput(fileName,MODE_PRIVATE));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            updateView();
-        }
+        viewPager.setAdapter(adapter);
     }
+
+
+
 }

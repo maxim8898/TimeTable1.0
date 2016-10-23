@@ -1,4 +1,4 @@
-package com.max.timetable10;
+package com.max.timetable10.View;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.max.timetable10.R;
 
 /**
  * Created by Максим on 16.10.2016.
