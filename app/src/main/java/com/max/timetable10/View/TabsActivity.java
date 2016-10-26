@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.max.timetable10.Model.UserSetups;
 import com.max.timetable10.Presenter.TaskFactory;
 import com.max.timetable10.R;
 import java.io.FileNotFoundException;
@@ -19,7 +22,7 @@ public class TabsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private UserSetups userSetups;
 
 
     public byte a;
@@ -29,14 +32,22 @@ public class TabsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
 
+
+
+
+
+        userSetups = new UserSetups((byte)0,(byte)0);
+
         TaskFactory.setDayFragments( new DayFragment[]{
-                new DayFragment(WeekDay.MONDAY,(byte)0,null),
-                new DayFragment(WeekDay.TUESDAY,(byte)1,null),
-                new DayFragment(WeekDay.WEDNESDAY,(byte)0,null),
-                new DayFragment(WeekDay.THURSDAY,(byte)0,null),
-                new DayFragment(WeekDay.FRIDAY,(byte)0,null),
-                new DayFragment(WeekDay.SATURDAY,(byte)0,null)
+                new DayFragment(WeekDay.MONDAY,userSetups),
+                new DayFragment(WeekDay.TUESDAY,userSetups),
+                new DayFragment(WeekDay.WEDNESDAY,userSetups),
+                new DayFragment(WeekDay.THURSDAY,userSetups),
+                new DayFragment(WeekDay.FRIDAY,userSetups),
+                new DayFragment(WeekDay.SATURDAY,userSetups)
         });
+
+
 
 
         downloadBorder = 0;
@@ -69,11 +80,13 @@ public class TabsActivity extends AppCompatActivity {
             case R.id.action_item_refresh:
                 if(downloadBorder<2) {
                     try {
-                        TaskFactory.updateView(openFileInput(fileName),openFileOutput(fileName,MODE_PRIVATE));
+                        TaskFactory.updateView(openFileInput(fileName),openFileOutput(fileName,MODE_PRIVATE),userSetups);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                     downloadBorder++;
+                }else{
+                    Toast.makeText(getApplicationContext(),"File downloading...",Toast.LENGTH_LONG);
                 }
                 break;
             case R.id.action_item_settings:

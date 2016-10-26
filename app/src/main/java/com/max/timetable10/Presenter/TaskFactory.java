@@ -1,5 +1,6 @@
 package com.max.timetable10.Presenter;
 
+import com.max.timetable10.Model.UserSetups;
 import com.max.timetable10.View.DayFragment;
 
 import java.io.FileInputStream;
@@ -17,8 +18,9 @@ public class TaskFactory {
         dayFragments = dayFragments1;
     }
 
-   public static void updateView(FileInputStream AndroidInputStream,FileOutputStream AndroidOutputStream){
-       new AsyncUpdateView(dayFragments,AndroidInputStream,AndroidOutputStream).execute();
-    }
+   public static void updateView(FileInputStream AndroidInputStream,FileOutputStream AndroidOutputStream,UserSetups userSetups){
+       new AsyncUpdateView(dayFragments,AndroidInputStream,AndroidOutputStream).execute(userSetups);
+   }
+
 
 }

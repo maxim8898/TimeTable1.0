@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.max.timetable10.Model.UserSetups;
 import com.max.timetable10.R;
 
 /**
@@ -20,7 +21,10 @@ public class DayFragment extends Fragment {
 
     private String[][] LessonSheet;
 
-    public DayFragment(WeekDay weekDay, byte group, String[][] LessonSheet){
+
+
+    public DayFragment(WeekDay weekDay, UserSetups us){
+        group = us.getGroup();
         switch (weekDay){
             case MONDAY: a = 0;
                 break;
