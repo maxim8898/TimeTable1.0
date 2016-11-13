@@ -1,5 +1,8 @@
 package com.max.timetable10.View;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.max.timetable10.Model.UserSetups;
+import com.max.timetable10.DBTest.DBHelper;
+import com.max.timetable10.Presenter.AsyncUpdateView;
 import com.max.timetable10.Presenter.TaskFactory;
 import com.max.timetable10.R;
 import java.io.FileNotFoundException;
@@ -17,14 +21,25 @@ import java.io.FileNotFoundException;
 
 public class TabsActivity extends AppCompatActivity {
 
+    void updateSettings(){
+        DayFragment.group = Byte.parseByte(sPref.getString("Group","0"));
+        AsyncUpdateView.Course = Byte.parseByte(sPref.getString("Course","0"));
+    }
+
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        updateSettings();
+
+    }
+
     public static int downloadBorder;
     public static String  fileName = "newtestcurrent.xls";
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private UserSetups userSetups;
-
-
+    SharedPreferences sPref;
     public byte a;
 
     @Override
@@ -32,23 +47,25 @@ public class TabsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
 
+        PreferenceManager.setDefaultValues(this,R.xml.pref,false);
+
+        sPref = PreferenceManager.getDefaultSharedPreferences(this);
 
 
+        TaskFactory.db = new DBHelper(this).getWritableDatabase();
 
 
-        userSetups = new UserSetups((byte)0,(byte)0);
-
+        DayFragment.db = TaskFactory.db;
         TaskFactory.setDayFragments( new DayFragment[]{
-                new DayFragment(WeekDay.MONDAY,userSetups),
-                new DayFragment(WeekDay.TUESDAY,userSetups),
-                new DayFragment(WeekDay.WEDNESDAY,userSetups),
-                new DayFragment(WeekDay.THURSDAY,userSetups),
-                new DayFragment(WeekDay.FRIDAY,userSetups),
-                new DayFragment(WeekDay.SATURDAY,userSetups)
+                new DayFragment(WeekDay.MONDAY),
+                new DayFragment(WeekDay.TUESDAY),
+                new DayFragment(WeekDay.WEDNESDAY),
+                new DayFragment(WeekDay.THURSDAY),
+                new DayFragment(WeekDay.FRIDAY),
+                new DayFragment(WeekDay.SATURDAY)
         });
 
-
-
+        updateSettings();
 
         downloadBorder = 0;
 
@@ -59,10 +76,11 @@ public class TabsActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+        TaskFactory.viewPager = viewPager;
+
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
 
     }
 
@@ -78,18 +96,24 @@ public class TabsActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.action_item_refresh:
+
                 if(downloadBorder<2) {
+
                     try {
-                        TaskFactory.updateView(openFileInput(fileName),openFileOutput(fileName,MODE_PRIVATE),userSetups);
+                        TaskFactory.updateView(openFileInput(fileName),openFileOutput(fileName,MODE_PRIVATE));
+
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                     downloadBorder++;
+
                 }else{
-                    Toast.makeText(getApplicationContext(),"File downloading...",Toast.LENGTH_LONG);
-                }
+                    Toast.makeText(this,"File downloading...",Toast.LENGTH_LONG);
+               }
                 break;
             case R.id.action_item_settings:
+                startActivity(new Intent(this,SettingsActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -102,8 +126,8 @@ public class TabsActivity extends AppCompatActivity {
         adapter.addFragment(TaskFactory.dayFragments[1], "ВТ");
         adapter.addFragment(TaskFactory.dayFragments[2], "СР");
         adapter.addFragment(TaskFactory.dayFragments[3], "ЧТ");
-        adapter.addFragment(TaskFactory.dayFragments[4], "ПЯТ");
-        adapter.addFragment(TaskFactory.dayFragments[5], "СУБ");
+        adapter.addFragment(TaskFactory.dayFragments[4], "ПТ");
+        adapter.addFragment(TaskFactory.dayFragments[5], "СБ");
 
         viewPager.setAdapter(adapter);
     }

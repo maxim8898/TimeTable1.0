@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">TimeTable1.0</string>
-    <string name="one_par_mon"></string>
-    <string name="two_par_mon"></string>
-    <string name="three_par_mon"></string>
-    <string name="four_par_mon"></string>
+    <string name="one_par_mon">5</string>
+    <string name="two_par_mon">6</string>
+    <string name="three_par_mon">7</string>
+    <string name="four_par_mon">8</string>
+    <string name="checkbox1_summary">Summary</string>
+    <string name="checkbox1_title">Title</string>
 </resources>

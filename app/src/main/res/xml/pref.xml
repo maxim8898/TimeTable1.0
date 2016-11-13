@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="notif"
+        android:summary="Enable notifications"
+        android:title="Notifications">
+    </CheckBoxPreference>
+
+    <ListPreference
+        android:key="Group"
+        android:summary="Choose your group"
+        android:title="Group"
+        android:defaultValue="digiGreen"
+        android:entries="@array/GroupsNames"
+        android:entryValues="@array/GroupsValue">
+    </ListPreference>
+    <ListPreference
+        android:key="Course"
+        android:summary="Choose your course"
+        android:title="Course"
+        android:defaultValue="digiGreen"
+        android:entries="@array/Course"
+        android:entryValues="@array/Course">
+    </ListPreference>
+</PreferenceScreen>

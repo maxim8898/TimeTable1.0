@@ -4,31 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.max.timetable10.View.DayFragment">
+    tools:context="com.max.timetable10.View.DayFragment"
+    android:background="@color/fon">
+
+
+
 
     <TextView
         android:text="@string/one_par_mon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal"
+        android:background="@color/colorString1"
+        android:layout_marginTop="16dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/text_size" />
 
     <TextView
         android:text="@string/two_par_mon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal"
+        android:background="@color/colorString2"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textSize="@dimen/text_size" />
 
     <TextView
         android:text="@string/three_par_mon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorString1"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textSize="@dimen/text_size" />
 
     <TextView
         android:text="@string/four_par_mon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4" />
+        android:id="@+id/textView4"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal"
+        android:background="@color/colorString2"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textSize="@dimen/text_size" />
 
 </LinearLayout>

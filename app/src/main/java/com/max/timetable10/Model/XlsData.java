@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Влад on 18.10.2016.
  */
 
-public class XlsData implements ILessonTable {
+public class XlsData {
 
     private  String URL ;
     public static final String FILE_NAME = "current.xls";

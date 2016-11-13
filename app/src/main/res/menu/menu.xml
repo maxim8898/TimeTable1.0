@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".View.TabsActivity">
+    tools:context=".TabsActivity">
     <group
         android:id="@+id/group1">
         <item
@@ -11,8 +11,14 @@
             android:title="Settings"
             app:showAsAction="always" />
         <item
-            android:id="@+id/action_item_refresh"
+            android:id="@+id/action_item_week"
             android:icon="@drawable/ic_rasp"
+            android:orderInCategory="1"
+            android:title="Refresh"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/action_item_refresh"
+            android:icon="@drawable/ic_sync_black_24dp"
             android:orderInCategory="1"
             android:title="Refresh"
             app:showAsAction="always" />
