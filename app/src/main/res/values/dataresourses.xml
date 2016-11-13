@@ -13,8 +13,10 @@
     <item>ФИ-1</item>
     <item>ЭК-1</item>
     <item>ПМ-1</item>
+    <item>КФ-1</item>
 </string-array>
     <string-array name="GroupsValue">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

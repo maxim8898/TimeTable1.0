@@ -28,7 +28,7 @@ public class AsyncUpdateView extends AsyncTask<SharedPreferences,Void,Void> {
     public static final int LessonCount = 24;
     public static final int GroupCount = 6;
     public static int Course;
-
+//TODO для того, чтобы обновить курс, нужно перескачивать расписание, разберись с этим
 
     public AsyncUpdateView() {
         super();
@@ -44,6 +44,7 @@ public class AsyncUpdateView extends AsyncTask<SharedPreferences,Void,Void> {
         this.db = db;
         viewPager = vp;
         xlsData = new XlsData(downloadUrl,AndroidFileInputStream,AndroidFileOutputStream);
+        Course = 0;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class AsyncUpdateView extends AsyncTask<SharedPreferences,Void,Void> {
     }
 
     private void updateDB(){
-        Course = 1;
+
         String[][] lessonSheet = new String[0][];
         try {
             lessonSheet = xlsData.getLessonTable(Course,GroupCount,LessonCount);

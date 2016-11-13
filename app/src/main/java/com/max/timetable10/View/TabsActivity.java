@@ -20,19 +20,20 @@ import java.io.FileNotFoundException;
 
 
 public class TabsActivity extends AppCompatActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateSettings();
+    }
 
     void updateSettings(){
         DayFragment.group = Byte.parseByte(sPref.getString("Group","0"));
         AsyncUpdateView.Course = Byte.parseByte(sPref.getString("Course","0"));
-    }
-
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        updateSettings();
 
     }
+
+
+
 
     public static int downloadBorder;
     public static String  fileName = "newtestcurrent.xls";

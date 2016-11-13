@@ -23,7 +23,7 @@ public class TaskFactory {
 
 
    public static void updateView(FileInputStream AndroidInputStream,FileOutputStream AndroidOutputStream){
-       //TODO записать проверку существования файла и прочитать из него, если он есть
+
        new AsyncUpdateView(viewPager,db,dayFragments,AndroidInputStream,AndroidOutputStream).execute();
 
    }
